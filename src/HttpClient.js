@@ -2,14 +2,27 @@ import queryString from 'query-string';
 import HttpFactory from './Http/HttpFactory'
 
 export default class HttpClient {
+  static defaults = {
+    baseUrl: null,
+    http: null
+  };
+
   constructor(http = HttpClient.defaults.http) {
     this.http = HttpFactory.resolve(http);
   }
+
+  getBaseUrl() {
+    return HttpClient.defaults.baseUrl;
+  }
 }
 
-HttpClient.defaults = {
-  http: null
-};
+function isNullOrUndefined(value) {
+  return value == undefined;
+}
+
+function isObject(value) {
+  return !isNullOrUndefined(value) && typeof value === 'object';
+}
 
 function brewByPath(target, methodName, url, args) {
   const pathMetadata = target[`${methodName}_Path_parameters`] || [];
@@ -19,6 +32,7 @@ function brewByPath(target, methodName, url, args) {
   return url;
 }
 
+
 function brewByQuery(target, methodName, url, args) {
   const queryMetadata = target[`${methodName}_Query_parameters`] || [];
   const URI = queryString.parseUrl(url);
@@ -27,24 +41,23 @@ function brewByQuery(target, methodName, url, args) {
   for (const param of queryMetadata) {
     const key = param.key;
     const value = args[param.paramIndex];
+    console.log(value)
 
     if (value instanceof Date) {
       urlQuery[key] = value.getTime().toString();
     } else if (Array.isArray(value)) {
       urlQuery[key] = value.map((item) => item).join(',');
-    } else if (typeof value === 'object') {
-      for (const k in value) {
-        if (value.hasOwnProperty(k) && value[k] !== undefined) {
+    } else if (isObject(value)) {
+      Object.keys(value)
+        .filter(k => value[k] !== undefined)
+        .forEach(k => {
           urlQuery[k] = value[k];
-        }
-      }
-    } else if (!!value) {
+        });
+    } else if (!isNullOrUndefined(value)) {
       urlQuery[key] = value.toString();
     } else {
       urlQuery[key] = '';
     }
-
-    urlQuery[param.key] = args[param.paramIndex];
   }
 
   const stringifiedQueries = queryString.stringify(urlQuery);
@@ -91,8 +104,7 @@ function methodBuilder(method) {
   return function (url) {
     return function (target, methodName, descriptor) {
       descriptor.value = function (...args) {
-        // let realURL = `${this.http.defaults.baseURL || ''}${url}`;
-        let realURL = `${url}`;
+        let realURL = url;
 
         // RequestOptions
         const options = descriptor.requestOptions;
@@ -112,17 +124,8 @@ function methodBuilder(method) {
         // Header
         const headers = brewByHeader(target, methodName, args);
 
-        // return this.http.request({
-        //   method,
-        //   url: realURL,
-        //   data: body,
-        //   headers: {
-        //     ...headers,
-        //     ...(options ? options.headers : {}),
-        //   },
-        //   responseType: options ? options.responseType : 'json',
-        //   withCredentials: options ? options.withCredentials : false,
-        // });
+        const { headers: headersOption = {}, credentials, withCredentials, ...otherOptions } = options || {};
+        const baseUrl = this.getBaseUrl() || (this.http.client.defaults && this.http.client.defaults.baseURL);
 
         return this.http.request({
           method,
@@ -130,10 +133,11 @@ function methodBuilder(method) {
           data: body,
           headers: {
             ...headers,
-            ...(options ? options.headers : {}),
+            ...headersOption,
           },
-          responseType: options ? options.responseType : 'json',
-          credentials: options ? options.withCredentials : false
+          ...otherOptions,
+          baseUrl,
+          credentials: credentials || withCredentials
         })
       };
 
@@ -164,7 +168,6 @@ export function RequestOptions(options) {
   return function (target, propertyKey, descriptor) {
     const defaultOptions = {
       responseType: 'json',
-      withCredentials: false
     };
 
     descriptor.requestOptions = {
@@ -178,7 +181,7 @@ export function RequestOptions(options) {
 }
 
 export const Headers = function (headers) {
-  return RequestOptions({headers});
+  return RequestOptions({ headers });
 };
 
 export const Path = paramBuilder('Path');

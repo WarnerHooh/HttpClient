@@ -3,12 +3,12 @@ import AxiosHttp from "./AxiosHttp";
 import RequestHttp from "./RequestHttp";
 import IHttp, { invalidError } from "./IHttp";
 
-let client = null;
+let instance = null;
 
 export default class HttpFactory {
 
   static resolve(http) {
-    if (!client) {
+    if (!instance) {
       if (typeof http !== 'function') {
         throw invalidError;
       }
@@ -16,19 +16,19 @@ export default class HttpFactory {
       const name = http.name;
       switch (name) {
         case 'fetch':
-          client = new FetchHttp(http);
+          instance = new FetchHttp(http);
           break;
         case 'wrap':
-          client = new AxiosHttp(http);
+          instance = new AxiosHttp(http);
           break;
         case 'request':
-          client = new RequestHttp(http);
+          instance = new RequestHttp(http);
           break;
         default:
-          client = new IHttp(http);
+          instance = new IHttp(http);
       }
     }
 
-    return client;
+    return instance;
   }
 }

@@ -1,19 +1,19 @@
 import IHttp from './IHttp'
 
 export default class FetchHttp extends IHttp {
-  constructor(http) {
-    super(http);
+  constructor(client) {
+    super(client);
   }
 
-  request({ url, method, headers, data, responseType, credentials }) {
+  request({ url, baseUrl, method, headers, data, ...rest }) {
     console.log('fetch impl');
+    const realUrl = `${baseUrl || ''}${url}`;
 
-    return this.http.bind(window)(url, {
+    return this.client.bind(window)(realUrl, {
       method,
-      body: data,
+      body: data && JSON.stringify(data),
       headers,
-      // TODO refactor
-      credentials: credentials ? 'include' : 'omit',
+      ...rest
     });
   }
 }

@@ -1,20 +1,19 @@
 import IHttp from './IHttp'
 
 export default class AxiosHttp extends IHttp{
-  constructor(http) {
-    super(http);
+  constructor(client) {
+    super(client);
   }
 
-  request({url, method, headers, data, responseType, credentials}) {
-    console.log('axios impl');
-
-    return this.http.request({
+  request({url, baseUrl, method, headers, data, credentials, ...rest}) {
+    return this.client.request({
       url,
       method,
       data,
       headers,
-      responseType,
-      withCredentials: credentials,
+      baseURL: baseUrl,
+      withCredentials: !!credentials,
+      ...rest
     });
   }
 }
