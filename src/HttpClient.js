@@ -4,11 +4,11 @@ import HttpFactory from './Http/HttpFactory'
 export default class HttpClient {
   static defaults = {
     baseUrl: null,
-    http: null
+    engine: null
   };
 
-  constructor(http = HttpClient.defaults.http) {
-    this.http = HttpFactory.resolve(http);
+  constructor(engine = HttpClient.defaults.engine) {
+    this.http = HttpFactory.resolve(engine);
   }
 
   getBaseUrl() {

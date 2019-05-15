@@ -4,7 +4,7 @@ import ArticleService from './ArticleService'
 
 // globally setting
 HttpClient.defaults = {
-  http: request,
+  engine: request,
   baseUrl: 'http://www.request-http-client.com/'
 };
 
