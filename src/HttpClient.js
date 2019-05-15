@@ -101,10 +101,12 @@ function brewByOptions(url, options) {
 }
 
 function methodBuilder(method) {
-  return function (url) {
+  return function (url = '') {
     return function (target, methodName, descriptor) {
       descriptor.value = function (...args) {
-        let realURL = url;
+        const pathPrefix = target['path_prefix'] || '';
+
+        let realURL = `${pathPrefix}${url}`;
 
         // RequestOptions
         const options = descriptor.requestOptions;
@@ -195,3 +197,7 @@ export const PUT = methodBuilder('PUT');
 export const DELETE = methodBuilder('DELETE');
 export const PATCH = methodBuilder('PATCH');
 export const OPTIONS = methodBuilder('OPTIONS');
+
+export const Controller = (prefix = '') => (target) => {
+  target.prototype['path_prefix'] = prefix;
+};

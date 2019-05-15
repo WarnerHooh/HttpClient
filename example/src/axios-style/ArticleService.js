@@ -1,18 +1,19 @@
 import axios from './axios';
 
-import HttpClient, { Path, POST, GET, Query, Headers, Body } from "../../../lib/HttpClient";
+import HttpClient, { Path, POST, GET, Query, Headers, Body, Controller } from "../../../lib/HttpClient";
 
+@Controller('/articles')
 export default class ArticleService extends HttpClient {
   constructor() {
     super(axios);
   }
 
-  @GET('/articles/:category')
+  @GET('/:category')
   @Headers({'X-TOKEN': 'SECURITY'})
   fetchArticles(@Path('category') category, @Query('status') status) {
   }
 
-  @POST('/articles')
+  @POST()
   createArticle(@Body body) {
   }
 }

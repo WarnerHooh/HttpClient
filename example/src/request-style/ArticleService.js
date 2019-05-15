@@ -1,12 +1,13 @@
-import HttpClient, { Path, POST, GET, Query, Body } from "../../../lib/HttpClient";
+import HttpClient, { Path, POST, GET, Query, Body, Controller } from "../../../lib/HttpClient";
 
+@Controller('/articles')
 export default class ArticleService extends HttpClient {
 
-  @GET('/articles/:category')
+  @GET('/:category')
   fetchArticles(@Path('category') category, @Query('status') status) {
   }
 
-  @POST('/articles')
+  @POST()
   createArticle(@Body body) {
   }
 }
