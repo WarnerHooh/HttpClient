@@ -10,7 +10,7 @@ This package is based on the ES6 decorator, a few babel plugins required for dec
 npm install --save-dev @babel/plugin-proposal-decorators @babel/plugin-proposal-class-properties babel-plugin-parameter-decorator
 ```
 ```
-npm install --save http-client
+npm install --save http-clienti
 ```
 
 #### Note:
@@ -25,7 +25,7 @@ Declare your requests as a service, e.g *ArticleService.js*.
 
 ```javascript
 import axios from 'axios';
-import HttpClient, { Path, Query, Body, DELETE, POST, PATCH, GET, Headers, RequestOptions, Controller } from "HttpClient";
+import HttpClient, { Path, Query, Body, DELETE, POST, PATCH, GET, Headers, RequestOptions, Controller } from 'http-clienti';
 
 @Controller('/articles')
 export default class ArticleService extends HttpClient {
@@ -83,7 +83,7 @@ Only axios / fetch / request are supported currently. We provided two approaches
 
 ```javascript
 import axios from 'axios';
-import HttpClient, { Controller } from "HttpClient";
+import HttpClient, { Controller } from 'http-clienti';
 
 @Controller('/articles')
 export default class ArticleService extends HttpClient {
@@ -100,7 +100,7 @@ export default class ArticleService extends HttpClient {
 
 ```javascript
 import request from 'request';
-import HttpClient, { Controller } from "HttpClient";
+import HttpClient, { Controller } from 'http-clienti';
 
 // This may be declared in some entry or main file.
 HttpClient.defaults = {
@@ -128,7 +128,7 @@ export default class ArticleService extends HttpClient {
 
 *BaseHttpClient.js*
 ```javascript
-import HttpClient from "HttpClient";
+import HttpClient from 'http-clienti';
 
 export default class BaseHttpClient extends HttpClient {
   constructor() {
@@ -143,8 +143,8 @@ export default class BaseHttpClient extends HttpClient {
 
 *ArticleService.js*
 ```javascript
-import { Body, GET, Path, POST, Query, Controller } from "HttpClient";
-import BaseHttpClient from "./BaseHttpClient";
+import { Body, GET, Path, POST, Query, Controller } from 'http-clienti';
+import BaseHttpClient from './BaseHttpClient';
 
 @Controller('/articles')
 export default class ArticleService extends BaseHttpClient {
@@ -165,7 +165,7 @@ export default class ArticleService extends BaseHttpClient {
 *main.js*
 ```javascript
 import request from 'request';
-import HttpClient from "HttpClient";
+import HttpClient from 'http-clienti';
 
 HttpClient.defaults = {
   // axios, fetch or request
@@ -176,7 +176,7 @@ HttpClient.defaults = {
 
 *ArticleService.js*
 ```javascript
-import HttpClient, { Body, GET, Path, POST, Query, Controller } from "HttpClient";
+import HttpClient, { Body, GET, Path, POST, Query, Controller } from 'http-clienti';
 
 @Controller('/articles')
 export default class ArticleService extends HttpClient {
@@ -209,7 +209,7 @@ export default axios.create({
 
 ```javascript
 import axios from './localAxios'
-import HttpClient, { Body, GET, Path, POST, Query, Controller } from "HttpClient";
+import HttpClient, { Body, GET, Path, POST, Query, Controller } from 'http-clienti';
 
 @Controller('/articles')
 export default class ArticleService extends HttpClient {
