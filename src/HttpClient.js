@@ -3,7 +3,7 @@ import HttpFactory from './Http/HttpFactory'
 
 export default class HttpClient {
   static defaults = {
-    baseUrl: null,
+    baseURL: null,
     engine: null
   };
 
@@ -11,8 +11,8 @@ export default class HttpClient {
     this.http = HttpFactory.resolve(engine);
   }
 
-  getBaseUrl() {
-    return HttpClient.defaults.baseUrl;
+  getBaseURL() {
+    return HttpClient.defaults.baseURL;
   }
 }
 
@@ -126,7 +126,7 @@ function methodBuilder(method) {
         const headers = brewByHeader(target, methodName, args);
 
         const { headers: headersOption = {}, credentials, withCredentials, ...otherOptions } = options || {};
-        const baseUrl = this.getBaseUrl() || (this.http.client.defaults && this.http.client.defaults.baseURL);
+        const baseURL = this.getBaseURL() || (this.http.client.defaults && this.http.client.defaults.baseURL);
 
         return this.http.request({
           method,
@@ -137,7 +137,7 @@ function methodBuilder(method) {
             ...headersOption,
           },
           ...otherOptions,
-          baseUrl,
+          baseURL,
           credentials: credentials || withCredentials
         })
       };

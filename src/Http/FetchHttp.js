@@ -5,10 +5,10 @@ export default class FetchHttp extends IHttp {
     super(client);
   }
 
-  request({ url, baseUrl, method, headers, data, ...rest }) {
-    const realUrl = `${baseUrl || ''}${url}`;
+  request({ url, baseURL, method, headers, data, ...rest }) {
+    const realURL = `${baseURL || ''}${url}`.replace(/\/\//g, '/');
 
-    return this.client.bind(window)(realUrl, {
+    return this.client.bind(window)(realURL, {
       method,
       body: data && JSON.stringify(data),
       headers,

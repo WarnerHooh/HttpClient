@@ -5,13 +5,13 @@ export default class AxiosHttp extends IHttp{
     super(client);
   }
 
-  request({url, baseUrl, method, headers, data, credentials, ...rest}) {
+  request({url, baseURL, method, headers, data, credentials, ...rest}) {
     return this.client.request({
       url,
       method,
       data,
       headers,
-      baseURL: baseUrl,
+      baseURL,
       withCredentials: !!credentials,
       ...rest
     });

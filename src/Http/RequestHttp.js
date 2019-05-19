@@ -5,11 +5,12 @@ export default class RequestHttp extends IHttp{
     super(client);
   }
 
-  request({url, method, headers, data, ...rest}) {
+  request({url, baseURL, method, headers, data, ...rest}) {
     return new Promise((resolve, reject) => {
       this.client({
         url,
         method,
+        baseUrl: baseURL,
         body: data && JSON.stringify(data),
         headers,
         ...rest

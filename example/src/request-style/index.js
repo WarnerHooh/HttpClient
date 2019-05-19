@@ -5,7 +5,7 @@ import ArticleService from './ArticleService'
 // globally setting
 HttpClient.defaults = {
   engine: request,
-  baseUrl: 'http://www.request-http-client.com/'
+  baseURL: 'http://www.request-http-client.com/'
 };
 
 export default ArticleService
