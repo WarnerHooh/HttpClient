@@ -2,21 +2,32 @@
   "name": "http-client",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/HttpClient",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "babel -x .js test/src/ -d test/lib && ava",
     "build": "babel src -d lib",
-    "example": "cd example && npm start"
+    "example": "cd example && npm start",
+    "prepublish": "npm run build"
   },
   "author": "Warner Hooh <warner.hooh@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "query-string": "^6.2.0"
+    "query-string": "^5.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/preset-env": "^7.2.3",
-    "@babel/plugin-proposal-class-properties": "^7.2.3"
+    "ava": "^1.1.0",
+    "axios": "^0.18.0",
+    "babel-plugin-parameter-decorator": "^1.0.7",
+    "sinon": "^7.3.2"
+  },
+  "ava": {
+    "files": [
+      "./test/*.js"
+    ]
   }
 }

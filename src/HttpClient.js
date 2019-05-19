@@ -41,7 +41,6 @@ function brewByQuery(target, methodName, url, args) {
   for (const param of queryMetadata) {
     const key = param.key;
     const value = args[param.paramIndex];
-    console.log(value)
 
     if (value instanceof Date) {
       urlQuery[key] = value.getTime().toString();
