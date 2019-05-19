@@ -1,5 +1,7 @@
 # HttpClient
 
+[![](https://travis-ci.com/WarnerHooh/HttpClient.svg?branch=master)](https://travis-ci.com/WarnerHooh/babel-plugin-parameter-decorator)
+
 A **declarative** RESTful lib for ajax http request, which supports [axios](https://github.com/axios/axios), [fetch](https://github.com/github/fetch) or [request](https://github.com/request/request).
 
 

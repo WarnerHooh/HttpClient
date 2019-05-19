@@ -10,6 +10,7 @@
     "test": "babel -x .js test/src/ -d test/lib && ava",
     "build": "babel src -d lib",
     "example": "cd example && npm start",
+    "prepush": "npm test",
     "prepublish": "npm run build"
   },
   "repository": {
