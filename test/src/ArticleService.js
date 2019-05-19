@@ -1,5 +1,5 @@
 import axios from 'axios';
-import HttpClient, { Path, DELETE, POST, PATCH, GET, Query, Headers, RequestOptions, Body, Controller } from "../../lib/HttpClient";
+import HttpClient, { Path, Query, Body, DELETE, POST, PATCH, GET, Headers, RequestOptions, Controller } from "../../lib/HttpClient";
 
 @Controller('/articles')
 export default class ArticleService extends HttpClient {

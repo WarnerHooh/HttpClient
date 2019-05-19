@@ -3,14 +3,32 @@
   "version": "1.0.0",
   "description": "",
   "main": "lib/HttpClient",
+  "engine": {
+    "node": "*"
+  },
   "scripts": {
     "test": "babel -x .js test/src/ -d test/lib && ava",
     "build": "babel src -d lib",
     "example": "cd example && npm start",
     "prepublish": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WarnerHooh/HttpClient.git"
+  },
   "author": "Warner Hooh <warner.hooh@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "request",
+    "axios",
+    "fetch",
+    "ajax",
+    "declarative",
+    "decorators",
+    "controller",
+    "RESTful",
+    "HttpClient"
+  ],
   "dependencies": {
     "query-string": "^5.1.1"
   },
