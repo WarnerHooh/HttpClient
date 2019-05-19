@@ -6,7 +6,6 @@ export default class RequestHttp extends IHttp{
   }
 
   request({url, method, headers, data, ...rest}) {
-    console.log('request impl')
     return new Promise((resolve, reject) => {
       this.client({
         url,

@@ -6,7 +6,6 @@ export default class FetchHttp extends IHttp {
   }
 
   request({ url, baseUrl, method, headers, data, ...rest }) {
-    console.log('fetch impl');
     const realUrl = `${baseUrl || ''}${url}`;
 
     return this.client.bind(window)(realUrl, {
