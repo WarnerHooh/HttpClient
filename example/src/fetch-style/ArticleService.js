@@ -1,5 +1,5 @@
 import FetchHttpClient from "./FetchHttpClient";
-import { Body, GET, Headers, Path, POST, Query, Controller } from "../../../lib/HttpClient";
+import { Body, GET, Headers, Path, POST, Query, Controller } from 'http-clienti';
 
 @Controller('/articles')
 export default class ArticleService extends FetchHttpClient {

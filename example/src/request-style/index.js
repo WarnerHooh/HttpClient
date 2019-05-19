@@ -1,5 +1,5 @@
 import request from 'request';
-import HttpClient from "../../../lib/HttpClient";
+import HttpClient from 'http-clienti';
 import ArticleService from './ArticleService'
 
 // globally setting

@@ -1,4 +1,4 @@
-import HttpClient, { Path, POST, GET, Query, Body, Controller } from "../../../lib/HttpClient";
+import HttpClient, { Path, POST, GET, Query, Body, Controller } from 'http-clienti';
 
 @Controller('/articles')
 export default class ArticleService extends HttpClient {
